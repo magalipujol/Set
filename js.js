@@ -1,9 +1,17 @@
-let card = [, , ,]
+var card = {
+    color: "",
+    pattern:"",
+    amount: "",
+    shape: ""
+} 
 
-/* 0 = color
-   1 = pattern
-   2 = amount
-   3 = shape */
+/* color: green, cyan, magenta
+   pattern: empty, stripped, solid
+   amount: one, two, three
+   shape:  */
+
+
+   //TODO change to object
 
 function colorCheck(card1, card2, card3) {
     if (card1[0] === card2[0] && card2[0] === card3[0]) {
