@@ -1,0 +1,8 @@
+JS
+modo competitivo con varias personas
+no se puede crear un mazo con cartas repetidas
+ver todos los sets disponibles
+
+HTML
+how to play
+
