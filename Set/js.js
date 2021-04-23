@@ -97,10 +97,8 @@ function createOrderedDeck () {
             }
         }
     }
-    
     return deckArr
 }
-
 
 
 function shuffle(array) {
@@ -119,10 +117,44 @@ function shuffle(array) {
     return array;
   }
 
-//TODO
-function findSet (deck) {
-    let arrNine = [];
-    for (let i = 0; i < 10; i++) {
-        arrNine.push(suffle(createOrderedDeck()))        
-    }
+//TODO suffledDeck should be an object, practice methods
+function createTableDeck (quantity) {
+    //suffledDeck creates a disordered deck only once, 
+    //because I don't want to create it every time I call suffle()
+    //TODO check if it has to be a global variable
+    let shuffledDeck = shuffle(createOrderedDeck())
+    return shuffledDeck.slice(0, quantity)
 }
+
+console.log(createTableDeck(9))
+
+function findSet (tableDeck) {
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            for (let k = 0; k < 3; k++) {
+                setCheck()
+            }}}
+}
+
+
+
+
+/* hasDuplicates function
+function hasDuplicates(array) {
+    return (new Set(array)).size !== array.length;
+}
+
+console.log(hasDuplicates(createOrderedDeck()))
+
+function hasDuplicatess(array) {
+    var valuesSoFar = [];
+    for (var i = 0; i < array.length; ++i) {
+        var value = array[i];
+        if (valuesSoFar.indexOf(value) !== -1) {
+            return true;
+        }
+        valuesSoFar.push(value);
+    }
+    return false;
+}
+*/
