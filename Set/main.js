@@ -117,23 +117,29 @@ function shuffle(array) {
     return array;
   }
 
-//TODO suffledDeck should be an object, practice methods
+
+let shuffledDeck = shuffle(createOrderedDeck())
+
+
+//TODO
 function createTableDeck (quantity) {
-    //suffledDeck creates a disordered deck only once, 
-    //because I don't want to create it every time I call suffle()
-    //TODO check if it has to be a global variable
-    let shuffledDeck = shuffle(createOrderedDeck())
+    
     return shuffledDeck.slice(0, quantity)
 }
 
 console.log(createTableDeck(9))
 
+//TODO da sets repetidos
 function findSet (tableDeck) {
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-            for (let k = 0; k < 3; k++) {
-                setCheck()
+    let sets = []
+    for (let i = 0; i < tableDeck.length; i++) {
+        for (let j = 0; j < tableDeck.length; j++) {
+            for (let k = 0; k < tableDeck.length; k++) {
+               if (setCheck(tableDeck[i], tableDeck[j], tableDeck[k])) {
+                   sets.push({card1: i, card2: j, card3: k})
+               }
             }}}
+    return sets
 }
 
 
