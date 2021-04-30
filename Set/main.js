@@ -11,6 +11,7 @@ let card1 = {
     shape: "triangle"
 }
 
+/* cards for assert
 let card2 = {
     color: "green",
     pattern: "empty",
@@ -45,11 +46,9 @@ let card6 = {
     amount: "three",
     shape: "hexagon"
 }
-/* cards for assert
 */
 
 
-let deck = [card3, card4, card5]
 
 function colorCheck(card1, card2, card3) {
     return ((card1.color === card2.color && card2.color === card3.color) || (card1.color != card2.color && card2.color != card3.color && card3.color != card1.color))
@@ -73,10 +72,8 @@ function shapeCheck(card1, card2, card3) {
 
 //TODO it would be better if I could do card1 === card2 === card3
 function setCheck(card1, card2, card3) {
-    if ((card1.color && card1.pattern && card1.amount && card1.shape) == 
-        (card2.color && card2.pattern && card2.amount && card2.shape) &&
-        (card2.color && card2.pattern && card2.amount && card2.shape) ==
-        (card3.color && card3.pattern && card3.amount && card3.shape)
+    if (checkTwoCardsAreTheSame(card1, card2) &&
+        checkTwoCardsAreTheSame(card2, card3)
         ) {
         return false
     }
@@ -85,8 +82,6 @@ function setCheck(card1, card2, card3) {
     amountCheck(card1, card2, card3) &&
     shapeCheck(card1, card2, card3))
 }
-
-//CHECK I don't use the above function
 
 function createRandomCard() {
     return createCard(possibleColor[Math.floor(Math.random() * 3)],
@@ -139,38 +134,59 @@ function shuffle(array) {
 let shuffledDeck = shuffle(createOrderedDeck())
 
 
-//TODO
 function createTableDeck (quantity) {
-    
-    return shuffledDeck.slice(0, quantity)
+    return shuffledDeck.splice(0, quantity)
 }
 
 
-//TODO da sets repetidos
 function findSet (tableDeck) {
     let sets = []
-    for (let i = 0; i < tableDeck.length; i++) {
-        for (let j = 0; j < tableDeck.length; j++) {
-            for (let k = 0; k < tableDeck.length; k++) {
-               if (setCheck(tableDeck[i], tableDeck[j], tableDeck[k]) == true) {
-                   sets.push(["card" + (i + 1), "card" + (j + 1), "card" + (k + 1)])
-               }
-            }}}
+    let possibilities = allPos(tableDeck)
+    for (let triad of possibilities) {
+        if (setCheck(...triad)) {
+            sets.push(triad)
+        }
+    }
     return sets
 }
 
-console.log(findSet(deck))
-
-
-//TODO
-function theSameInDiffOrder(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        for (let j = 0; j < arr[i].length; j++) {
-            
+function allPos (arr) {
+    let pos = []
+    for (let i = 0; i < arr.length - 2; i++) {
+        for (let j = i + 1; j < arr.length - 1; j++) {
+            for (let k = j + 1; k < arr.length; k++) {
+                pos.push([arr[i], arr[j], arr[k]])
+            }
         }
     }
+    return pos
 }
 
+//TODO
+function clearCardFromTable (tableDeck, card) {
+    
+        if (checkTwoCardsAreTheSame(card, card1)) {
+
+        }
+
+}
+
+//TODO
+function clearSetFromTable (tableDeck, card1, card2, card3) {
+
+}
+
+//
+function checkTwoCardsAreTheSame (card1, card2) {
+    return ((card1.color && card1.pattern && card1.amount && card1.shape) == 
+    (card2.color && card2.pattern && card2.amount && card2.shape))
+}
+
+//TODO 
+function completeTableDeck (tableDeck) {
+    //table has to have 9 cards, unless there are less than 9 cards in the global deck
+    //if there is no set, add 3 cards
+}
 
 /* hasDuplicates function
 function hasDuplicates(array) {
