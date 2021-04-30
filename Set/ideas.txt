@@ -6,3 +6,5 @@ ver todos los sets disponibles
 HTML
 how to play
 
+CSS
+add letters and numbers to the grid (batalla naval)

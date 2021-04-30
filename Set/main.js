@@ -74,13 +74,13 @@ function shapeCheck(card1, card2, card3) {
 function setCheck(card1, card2, card3) {
     if (checkTwoCardsAreTheSame(card1, card2) &&
         checkTwoCardsAreTheSame(card2, card3)
-        ) {
+    ) {
         return false
     }
     return (colorCheck(card1, card2, card3) &&
-    patternCheck(card1, card2, card3) &&
-    amountCheck(card1, card2, card3) &&
-    shapeCheck(card1, card2, card3))
+        patternCheck(card1, card2, card3) &&
+        amountCheck(card1, card2, card3) &&
+        shapeCheck(card1, card2, card3))
 }
 
 function createRandomCard() {
@@ -99,7 +99,7 @@ function createCard(color, pattern, amount, shape) {
     }
 }
 
-function createOrderedDeck () {
+function createOrderedDeck() {
     let deckArr = []
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
@@ -116,30 +116,30 @@ function createOrderedDeck () {
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
-  
+
     while (0 !== currentIndex) {
-  
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
     }
-  
+
     return array;
-  }
+}
 
 
 let shuffledDeck = shuffle(createOrderedDeck())
 
 
-function createTableDeck (quantity) {
+function createTableDeck(quantity) {
     return shuffledDeck.splice(0, quantity)
 }
 
 
-function findSet (tableDeck) {
+function findSet(tableDeck) {
     let sets = []
     let possibilities = allPos(tableDeck)
     for (let triad of possibilities) {
@@ -150,7 +150,7 @@ function findSet (tableDeck) {
     return sets
 }
 
-function allPos (arr) {
+function allPos(arr) {
     let pos = []
     for (let i = 0; i < arr.length - 2; i++) {
         for (let j = i + 1; j < arr.length - 1; j++) {
@@ -163,27 +163,28 @@ function allPos (arr) {
 }
 
 //TODO
-function clearCardFromTable (tableDeck, card) {
-    
-        if (checkTwoCardsAreTheSame(card, card1)) {
-
+function clearCardFromTable(tableDeck, card) {
+    for (let i = 0; i < tableDeck.length; i++) {
+        if (checkTwoCardsAreTheSame(card, tableDeck[i])) {
+            tableDeck.splice(i, 1)
         }
-
+    }
+    return tableDeck
 }
 
 //TODO
-function clearSetFromTable (tableDeck, card1, card2, card3) {
+function clearSetFromTable(tableDeck, card1, card2, card3) {
 
 }
 
 //
-function checkTwoCardsAreTheSame (card1, card2) {
-    return ((card1.color && card1.pattern && card1.amount && card1.shape) == 
-    (card2.color && card2.pattern && card2.amount && card2.shape))
+function checkTwoCardsAreTheSame(card1, card2) {
+    return ((card1.color && card1.pattern && card1.amount && card1.shape) ==
+        (card2.color && card2.pattern && card2.amount && card2.shape))
 }
 
 //TODO 
-function completeTableDeck (tableDeck) {
+function completeTableDeck(tableDeck) {
     //table has to have 9 cards, unless there are less than 9 cards in the global deck
     //if there is no set, add 3 cards
 }
