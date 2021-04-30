@@ -4,7 +4,6 @@ let possibleAmount = ["one", "two", "three"];
 let possibleShape = ["triangle", "hexagon", "oval"];
 
 
-/* cards for assert
 let card1 = {
     color: "green",
     pattern: "empty",
@@ -39,7 +38,18 @@ let card5 = {
     amount: "three",
     shape: "hexagon"
 }
+
+let card6 = {
+    color: "cyan",
+    pattern: "stripped",
+    amount: "three",
+    shape: "hexagon"
+}
+/* cards for assert
 */
+
+
+let deck = [card3, card4, card5]
 
 function colorCheck(card1, card2, card3) {
     return ((card1.color === card2.color && card2.color === card3.color) || (card1.color != card2.color && card2.color != card3.color && card3.color != card1.color))
@@ -61,7 +71,15 @@ function shapeCheck(card1, card2, card3) {
         (card1.shape != card2.shape && card2.shape != card3.shape && card3.shape != card1.shape))
 }
 
+//TODO it would be better if I could do card1 === card2 === card3
 function setCheck(card1, card2, card3) {
+    if ((card1.color && card1.pattern && card1.amount && card1.shape) == 
+        (card2.color && card2.pattern && card2.amount && card2.shape) &&
+        (card2.color && card2.pattern && card2.amount && card2.shape) ==
+        (card3.color && card3.pattern && card3.amount && card3.shape)
+        ) {
+        return false
+    }
     return (colorCheck(card1, card2, card3) &&
     patternCheck(card1, card2, card3) &&
     amountCheck(card1, card2, card3) &&
@@ -127,7 +145,6 @@ function createTableDeck (quantity) {
     return shuffledDeck.slice(0, quantity)
 }
 
-console.log(createTableDeck(9))
 
 //TODO da sets repetidos
 function findSet (tableDeck) {
@@ -135,14 +152,24 @@ function findSet (tableDeck) {
     for (let i = 0; i < tableDeck.length; i++) {
         for (let j = 0; j < tableDeck.length; j++) {
             for (let k = 0; k < tableDeck.length; k++) {
-               if (setCheck(tableDeck[i], tableDeck[j], tableDeck[k])) {
-                   sets.push({card1: i, card2: j, card3: k})
+               if (setCheck(tableDeck[i], tableDeck[j], tableDeck[k]) == true) {
+                   sets.push(["card" + (i + 1), "card" + (j + 1), "card" + (k + 1)])
                }
             }}}
     return sets
 }
 
+console.log(findSet(deck))
 
+
+//TODO
+function theSameInDiffOrder(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[i].length; j++) {
+            
+        }
+    }
+}
 
 
 /* hasDuplicates function
