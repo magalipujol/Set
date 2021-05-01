@@ -3,6 +3,9 @@ let possiblePattern = ["empty", "stripped", "solid"];
 let possibleAmount = ["one", "two", "three"];
 let possibleShape = ["triangle", "hexagon", "oval"];
 
+/* node
+   .load "archivo".js 
+*/
 
 let card1 = {
     color: "green",
@@ -72,10 +75,11 @@ function shapeCheck(card1, card2, card3) {
 
 //TODO it would be better if I could do card1 === card2 === card3
 function setCheck(card1, card2, card3) {
-    if (checkTwoCardsAreTheSame(card1, card2) &&
-        checkTwoCardsAreTheSame(card2, card3)
+    if (checkTwoCardsAreTheSame(card1, card2) ||
+        checkTwoCardsAreTheSame(card2, card3) ||
+        checkTwoCardsAreTheSame(card3, card1)
     ) {
-        return false
+        return "TA MAL"
     }
     return (colorCheck(card1, card2, card3) &&
         patternCheck(card1, card2, card3) &&
@@ -138,7 +142,7 @@ function createTableDeck(quantity) {
     return shuffledDeck.splice(0, quantity)
 }
 
-
+//CHECK tableDeck should be global
 function findSet(tableDeck) {
     let sets = []
     let possibilities = allPos(tableDeck)
@@ -162,7 +166,6 @@ function allPos(arr) {
     return pos
 }
 
-//TODO
 function clearCardFromTable(tableDeck, card) {
     for (let i = 0; i < tableDeck.length; i++) {
         if (checkTwoCardsAreTheSame(card, tableDeck[i])) {
@@ -172,15 +175,18 @@ function clearCardFromTable(tableDeck, card) {
     return tableDeck
 }
 
+console.assert(clearCardFromTable(createOrderedDeck().splice(0, 4), {color: "green", pattern: "empty", amount: "one", shape: "triangle"}))
+
 //TODO
 function clearSetFromTable(tableDeck, card1, card2, card3) {
 
 }
 
-//
 function checkTwoCardsAreTheSame(card1, card2) {
-    return ((card1.color && card1.pattern && card1.amount && card1.shape) ==
-        (card2.color && card2.pattern && card2.amount && card2.shape))
+    return ((card1.color == card2.color) && 
+            (card1.pattern == card2.pattern) && 
+            (card1.amount == card1.amount) &&
+            (card1.shape == card2.shape))
 }
 
 //TODO 
@@ -190,6 +196,7 @@ function completeTableDeck(tableDeck) {
 }
 
 /* hasDuplicates function
+
 function hasDuplicates(array) {
     return (new Set(array)).size !== array.length;
 }
