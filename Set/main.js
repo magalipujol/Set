@@ -53,6 +53,7 @@ let card6 = {
 
 //TODO hacer los asserts de todas las funciones
 
+
 function colorCheck(card1, card2, card3) {
     return ((card1.color === card2.color && card2.color === card3.color) || (card1.color != card2.color && card2.color != card3.color && card3.color != card1.color))
 }
@@ -102,6 +103,16 @@ function createCard(color, pattern, amount, shape) {
     }
 }
 
+function createCardFromNumbers(color, pattern, amount, shape) {
+    return {
+        color: possibleColor[color],
+        pattern: possiblePattern[pattern],
+        amount: possibleAmount[amount],
+        shape: possibleShape[shape]
+    }
+}
+
+
 function createOrderedDeck() {
     let deckArr = []
     for (let i = 0; i < 3; i++) {
@@ -136,6 +147,7 @@ function shuffle(array) {
 let shuffledDeck = shuffle(createOrderedDeck())
 let tableDeck = []
 
+// TODO concat en vez de push y flat
 function createTableDeck(quantity) {
     tableDeck.push(shuffledDeck.splice(0, quantity))
     tableDeck = tableDeck.flat()
@@ -174,7 +186,6 @@ function clearCardFromTable(tableDeck, card) {
     return tableDeck
 }
 
-console.assert(clearCardFromTable(createOrderedDeck().splice(0, 4), {color: "green", pattern: "empty", amount: "one", shape: "triangle"}))
 
 //TABLEDECK
 
@@ -222,3 +233,29 @@ function hasDuplicatess(array) {
     return false;
 }
 */
+
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time 
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l=this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;       
+        }           
+        else if (this[i] != array[i]) { 
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;   
+        }           
+    }       
+    return true;
+}
+// Hide method from for-in loops
+Object.defineProperty(Array.prototype, "equals", {enumerable: false});
