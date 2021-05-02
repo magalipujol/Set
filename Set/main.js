@@ -7,6 +7,7 @@ let possibleShape = ["triangle", "hexagon", "oval"];
    .load "archivo".js 
 */
 
+/* cards for assert
 let card1 = {
     color: "green",
     pattern: "empty",
@@ -14,7 +15,6 @@ let card1 = {
     shape: "triangle"
 }
 
-/* cards for assert
 let card2 = {
     color: "green",
     pattern: "empty",
@@ -51,7 +51,7 @@ let card6 = {
 }
 */
 
-
+//TODO hacer los asserts de todas las funciones
 
 function colorCheck(card1, card2, card3) {
     return ((card1.color === card2.color && card2.color === card3.color) || (card1.color != card2.color && card2.color != card3.color && card3.color != card1.color))
@@ -73,7 +73,6 @@ function shapeCheck(card1, card2, card3) {
         (card1.shape != card2.shape && card2.shape != card3.shape && card3.shape != card1.shape))
 }
 
-//TODO it would be better if I could do card1 === card2 === card3
 function setCheck(card1, card2, card3) {
     if (checkTwoCardsAreTheSame(card1, card2) ||
         checkTwoCardsAreTheSame(card2, card3) ||
@@ -117,7 +116,6 @@ function createOrderedDeck() {
     return deckArr
 }
 
-
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -136,25 +134,26 @@ function shuffle(array) {
 
 
 let shuffledDeck = shuffle(createOrderedDeck())
-
+let tableDeck = []
 
 function createTableDeck(quantity) {
-    return shuffledDeck.splice(0, quantity)
+    tableDeck.push(shuffledDeck.splice(0, quantity))
+    tableDeck = tableDeck.flat()
+    return tableDeck
 }
 
-//CHECK tableDeck should be global
 function findSet(tableDeck) {
     let sets = []
-    let possibilities = allPos(tableDeck)
+    let possibilities = findAllPossibilities(tableDeck)
     for (let triad of possibilities) {
-        if (setCheck(...triad)) {
+        if (setCheck(triad[0], triad[1], triad[2])) {
             sets.push(triad)
         }
     }
     return sets
 }
 
-function allPos(arr) {
+function findAllPossibilities(arr) {
     let pos = []
     for (let i = 0; i < arr.length - 2; i++) {
         for (let j = i + 1; j < arr.length - 1; j++) {
@@ -177,9 +176,16 @@ function clearCardFromTable(tableDeck, card) {
 
 console.assert(clearCardFromTable(createOrderedDeck().splice(0, 4), {color: "green", pattern: "empty", amount: "one", shape: "triangle"}))
 
-//TODO
-function clearSetFromTable(tableDeck, card1, card2, card3) {
+//TABLEDECK
 
+//TODO está mal el setfinder
+function clearSetFromTable(tableDeck, card1, card2, card3) {
+    if (setCheck(card1, card2, card3)) {
+        clearCardFromTable(tableDeck, card1)
+        clearCardFromTable(tableDeck, card2)
+        clearCardFromTable(tableDeck, card3)
+    }
+    return tableDeck
 }
 
 function checkTwoCardsAreTheSame(card1, card2) {
@@ -189,7 +195,8 @@ function checkTwoCardsAreTheSame(card1, card2) {
             (card1.shape == card2.shape))
 }
 
-//TODO 
+//TODO
+//TABLEDECK
 function completeTableDeck(tableDeck) {
     //table has to have 9 cards, unless there are less than 9 cards in the global deck
     //if there is no set, add 3 cards
