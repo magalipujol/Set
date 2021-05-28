@@ -8,3 +8,6 @@ how to play
 
 CSS
 add letters and numbers to the grid (batalla naval)
+https://freefrontend.com/css-cards/  how to animate cards
+https://bansal.io/pattern-css#installation add patterns 
+https://freefrontend.com/css-background-patterns/ patterns
