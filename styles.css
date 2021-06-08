@@ -1,0 +1,19 @@
+/* palette of colors and fonts */
+:root {
+--primary-cyan: #64C7CC;
+--primary-magenta: #e6739f;
+--primary-green: #7ea04d;
+
+--light-cyan: ;
+--light-magenta: #E1BBCA;
+--light-green: ;
+--light-grey: ;
+}
+
+.card {
+    height: 250px;
+    width: 200px;
+    border-radius: 10%;
+    border-color: black;
+}
+
