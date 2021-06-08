@@ -259,3 +259,6 @@ Array.prototype.equals = function (array) {
 }
 // Hide method from for-in loops
 Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+
+
+document.getElementById("keke").src = cardsURL.card1

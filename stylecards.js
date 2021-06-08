@@ -1,17 +1,12 @@
-let exampleCard = createRandomCard()
-console.log(exampleCard)
-
-function addColorProperty(object) {
-    var card = document.getElementById("card1")
-    card.classList.add(object.color)
+cardsLook = {
+    card1: {
+        color: "magenta",
+        pattern: "empty",
+        amount: "one", 
+        shape: "rectangle"
+    }
 }
 
-function addShapeProperty(object) {
-    var card = document.getElementById("card1")
-    card.classList.add(object.shape)
+cardsURL = {
+    card1: "Cards/card1.svg"
 }
-
-
-
-addColorProperty(exampleCard)
-addShapeProperty(exampleCard)
