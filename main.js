@@ -3,6 +3,7 @@ let possiblePattern = ["empty", "stripped", "solid"];
 let possibleAmount = ["one", "two", "three"];
 let possibleShape = ["triangle", "hexagon", "oval"];
 
+const carddd = new Card('red', 'empty', 'one', 'triangle')
 /* node
    .load "archivo".js 
 */
@@ -87,12 +88,12 @@ function setCheck(card1, card2, card3) {
         shapeCheck(card1, card2, card3))
 }
 
-function createRandomCard() {
-    return createCard(possibleColor[Math.floor(Math.random() * 3)],
-        possiblePattern[Math.floor(Math.random() * 3)],
-        possibleAmount[Math.floor(Math.random() * 3)],
-        possibleShape[Math.floor(Math.random() * 3)])
-}
+// function createRandomCard() {
+//     return createCard(possibleColor[Math.floor(Math.random() * 3)],
+//         possiblePattern[Math.floor(Math.random() * 3)],
+//         possibleAmount[Math.floor(Math.random() * 3)],
+//         possibleShape[Math.floor(Math.random() * 3)])
+// }
 
 function createCard(color, pattern, amount, shape) {
     return {
