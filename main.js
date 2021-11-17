@@ -3,9 +3,9 @@ let possiblePattern = ["empty", "stripped", "solid"];
 let possibleAmount = ["one", "two", "three"];
 let possibleShape = ["triangle", "hexagon", "oval"];
 
-const carddd = new Card('red', 'empty', 'one', 'triangle')
+const carddd = new Card('green', 'empty', 'one', 'triangle')
 /* node
-   .load "archivo".js 
+   .load "archivo".js
 */
 
 /* cards for assert
@@ -201,8 +201,8 @@ function clearSetFromTable(tableDeck, card1, card2, card3) {
 }
 
 function checkTwoCardsAreTheSame(card1, card2) {
-    return ((card1.color == card2.color) && 
-            (card1.pattern == card2.pattern) && 
+    return ((card1.color == card2.color) &&
+            (card1.pattern == card2.pattern) &&
             (card1.amount == card1.amount) &&
             (card1.shape == card2.shape))
 }
@@ -240,7 +240,7 @@ Array.prototype.equals = function (array) {
     if (!array)
         return false;
 
-    // compare lengths - can save a lot of time 
+    // compare lengths - can save a lot of time
     if (this.length != array.length)
         return false;
 
@@ -249,17 +249,51 @@ Array.prototype.equals = function (array) {
         if (this[i] instanceof Array && array[i] instanceof Array) {
             // recurse into the nested arrays
             if (!this[i].equals(array[i]))
-                return false;       
-        }           
-        else if (this[i] != array[i]) { 
+                return false;
+        }
+        else if (this[i] != array[i]) {
             // Warning - two different object instances will never be equal: {x:20} != {x:20}
-            return false;   
-        }           
-    }       
+            return false;
+        }
+    }
     return true;
 }
 // Hide method from for-in loops
 Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 
 
-document.getElementById("keke").src = cardsURL.card1
+let deck;
+let card;
+//  JS DOM
+document.getElementById("create-random-card").addEventListener("click", function () {
+    card = new Card()
+    card.createRandomCard()
+    console.log(card);
+})
+
+document.getElementById("create-deck").addEventListener("click", function () {
+    deck = new Deck()
+    deck.createOrderedDeck()
+    console.log(deck.cards);
+})
+
+document.getElementById("print-deck").addEventListener("click", function () {
+    console.log(deck);
+})
+
+document.getElementById("shuffle-deck").addEventListener("click", function () {
+    deck.shuffle()
+    console.log(deck)
+})
+
+document.getElementById("draw-one").addEventListener("click", function () {
+    console.log(deck.drawOneCard());
+    console.log(deck);
+})
+
+document.getElementById("draw-three").addEventListener("click", function () {
+    console.log(deck.drawCards(3))
+    console.log(
+        deck
+    );
+})

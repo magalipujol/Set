@@ -3,30 +3,44 @@ class Deck {
     this.cards = cards;
   }
 
-//   TODO this should assign cards to an already created deck, not create a new one
   createOrderedDeck() {
-    let possibleColor = ["green", "cyan", "magenta"];
-    let possiblePattern = ["empty", "stripped", "solid"];
-    let possibleAmount = ["one", "two", "three"];
-    let possibleShape = ["triangle", "hexagon", "oval"];
-
     let deckArr = [];
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         for (let k = 0; k < 3; k++) {
           for (let l = 0; l < 3; l++) {
             deckArr.push(
-              createCard(
+              new Card(
                 possibleColor[i],
                 possiblePattern[j],
                 possibleAmount[k],
                 possibleShape[l]
               )
-            );
+            )
           }
         }
       }
     }
-    return new Deck(deckArr);
+    this.cards = deckArr;
   }
+
+  shuffle() {
+    for (let i = this.cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+    }
+  }
+
+  drawOneCard() {
+    return this.cards.pop();
+  }
+
+  drawCards(amount) {
+    let cards = [];
+    for (let i = 0; i < amount; i++) {
+      cards.push(this.drawOneCard())
+    }
+    return cards
+  }
+
 }

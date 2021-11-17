@@ -6,17 +6,11 @@ class Card {
     this.shape = shape;
   }
 
+  // TODO no me anda :(
   createRandomCard() {
-    let possibleColor = ["green", "cyan", "magenta"];
-    let possiblePattern = ["empty", "stripped", "solid"];
-    let possibleAmount = ["one", "two", "three"];
-    let possibleShape = ["triangle", "hexagon", "oval"];
-
-    return new Card(
-      possibleColor[Math.floor(Math.random() * 3)],
-      possiblePattern[Math.floor(Math.random() * 3)],
-      possibleAmount[Math.floor(Math.random() * 3)],
-      possibleShape[Math.floor(Math.random() * 3)]
-    );
+      this.color = possibleColor[Math.floor(Math.random() * 3)],
+      this.pattern = possiblePattern[Math.floor(Math.random() * 3)],
+      this.amount = possibleAmount[Math.floor(Math.random() * 3)],
+      this.shape = possibleShape[Math.floor(Math.random() * 3)]
   }
 }

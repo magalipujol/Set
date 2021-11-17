@@ -1,3 +1,10 @@
+let cardd1 = new Card('green', 'empty', 'one', 'triangle');
+let cardd2 = new Card('green', 'empty', 'one', 'triangle');
+let cardd3 = new Card('magenta', 'empty', 'one', 'triangle');
+let cardd4 = new Card('magenta', 'empty', 'one', 'triangle');
+let set1 = new Set([cardd1, cardd2, cardd3]);
+let set2 = new Set([cardd1, cardd2, cardd4]);
+// console.assert(set1.checkSet() === true, 'set1 is a set');
 
 // console.assert(colorCheck({color:"green"}, {color:"green"}, {color:"green"}))
 // console.assert(colorCheck({color:"green"}, {color:"magenta"}, {color:"cyan"}))
