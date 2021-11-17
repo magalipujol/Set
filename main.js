@@ -287,13 +287,11 @@ document.getElementById("shuffle-deck").addEventListener("click", function () {
 })
 
 document.getElementById("draw-one").addEventListener("click", function () {
-    console.log(deck.drawOneCard());
+    console.log(deck.drawCards(1));
     console.log(deck);
 })
 
 document.getElementById("draw-three").addEventListener("click", function () {
-    console.log(deck.drawCards(3))
-    console.log(
-        deck
-    );
+    console.log(deck.drawCards(3));
+    console.log(deck);
 })

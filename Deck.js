@@ -31,16 +31,10 @@ class Deck {
     }
   }
 
-  drawOneCard() {
-    return this.cards.pop();
-  }
-
   drawCards(amount) {
-    let cards = [];
-    for (let i = 0; i < amount; i++) {
-      cards.push(this.drawOneCard())
-    }
-    return cards
+    let drawnCards = [];
+    drawnCards = this.cards.splice(this.cards.length - amount, amount)
+    return drawnCards
   }
 
 }
