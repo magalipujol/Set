@@ -95,59 +95,6 @@ function setCheck(card1, card2, card3) {
 //         possibleShape[Math.floor(Math.random() * 3)])
 // }
 
-function createCard(color, pattern, amount, shape) {
-    return {
-        color: color,
-        pattern: pattern,
-        amount: amount,
-        shape: shape
-    }
-}
-
-function createCardFromNumbers(color, pattern, amount, shape) {
-    return {
-        color: possibleColor[color],
-        pattern: possiblePattern[pattern],
-        amount: possibleAmount[amount],
-        shape: possibleShape[shape]
-    }
-}
-
-
-function createOrderedDeck() {
-    let deckArr = []
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-            for (let k = 0; k < 3; k++) {
-                for (let l = 0; l < 3; l++) {
-                    deckArr.push(createCard(possibleColor[i], possiblePattern[j], possibleAmount[k], possibleShape[l]))
-                }
-            }
-        }
-    }
-    return deckArr
-}
-
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (0 !== currentIndex) {
-
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-
-let shuffledDeck = shuffle(createOrderedDeck())
-let tableDeck = []
-
 // TODO concat en vez de push y flat
 function createTableDeck(quantity) {
     tableDeck.push(shuffledDeck.splice(0, quantity))
