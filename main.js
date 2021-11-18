@@ -59,12 +59,12 @@ function setCheck(card1, card2, card3) {
 }
 
 function findAllSets(cards) {
-  sets = []
+  sets = [];
   for (let i = 0; i < cards.length; i++) {
     for (let j = i + 1; j < cards.length; j++) {
       for (let k = j + 1; k < cards.length; k++) {
         if (setCheck(cards[i], cards[j], cards[k])) {
-          sets.push([cards[i], cards[j], cards[k]])
+          sets.push([cards[i], cards[j], cards[k]]);
         }
       }
     }
@@ -80,10 +80,10 @@ function findAllSets(cards) {
 // ? esto no me parece que tenga que ser una función
 function createInitialTable(deck) {
   // chequeo primero que no esté con las 9 cartas iniciales
-  if (typeof table === 'undefined') {
-    table = deck.drawCards(9)
+  if (typeof table === "undefined") {
+    table = deck.drawCards(9);
   }
-  return table
+  return table;
 }
 
 // ? el nombre no estaría indicando muy bien que hace la función
@@ -91,48 +91,55 @@ function createInitialTable(deck) {
 // the amount of cards has to be between 9 and a bigger multiple of 3, and it has to have at least one set
 function checkTable(table) {
   if (findAllSets(table).length >= 1 || deck.cards.length == 0) {
-    return true
-  }
-  else {
-    table.push(...deck.drawCards(3))
-    return checkTable(table)
+    return true;
+  } else {
+    table.push(...deck.drawCards(3));
+    return checkTable(table);
   }
 }
 
 // si deck vacio y no hay sets en la mesa => termina el juego
 
 function clearCardFromTable(table, cardToDelete) {
-  let deletedCardIndex = table.findIndex(card => card.checkIfTwoCardsAreTheSame(card, cardToDelete))
-  let deletedCard = table.splice(deletedCardIndex, 1)
-  return deletedCard[0]
+  let deletedCardIndex = table.findIndex((card) =>
+    card.checkIfTwoCardsAreTheSame(card, cardToDelete)
+  );
+  let deletedCard = table.splice(deletedCardIndex, 1);
+  return deletedCard[0];
 }
 
-function deleteSetFromTable(table, card1, card2, card3) {
-  let possibleSet = [card1, card2, card3]
-  if (setCheck(card1, card2, card3)) {
-    for (card in possibleSet) {
-      clearCardFromTable(table, card)
-    }
+function deleteSetFromTable(card1, card2, card3) {
+  let possibleSet = [card1, card2, card3];
+  for (card in possibleSet) {
+    clearCardFromTable(table, card);
   }
-  setsFound.push(possibleSet)
-  return setsFound
+  setsFound.push(possibleSet);
 }
 
 /* **** */
 /* GAME */
 /* **** */
-//
+
+function trySetandRemoveIt(card1, card2, card3) {
+  if (!setCheck(card1, card2, card3)) {
+    return false
+  } else {
+    deleteSetFromTable(card1, card2, card3)
+    checkTable()
+    return true
+  }
+}
+
 // TODO
 // ? como hago para que el input de las 3 cartas vaya cambiando
 function playSet(card1, card2, card3) {
   // crear deck shuffleado
   // repartir table inicial
   if (deck.cards.length == 0 && findAllSets(table).length == 0) {
-    return setsFound
+    return setsFound;
   } else {
-    deleteSetFromTable(table, card1, card2, card3)
-    checkTable()
-
+    deleteSetFromTable(table, card1, card2, card3);
+    checkTable();
   }
 }
 
@@ -179,20 +186,20 @@ document.getElementById("create-cards").addEventListener("click", function () {
   console.log(card1, card2, card3, card4);
 });
 
-document.getElementById("create-initial-table").addEventListener("click", function() {
-  createInitialTable(deck)
-  console.log(table);
-})
+document
+  .getElementById("create-initial-table")
+  .addEventListener("click", function () {
+    createInitialTable(deck);
+    console.log(table);
+  });
 
-
-document.getElementById('start-game').addEventListener('click', function() {
+document.getElementById("start-game").addEventListener("click", function () {
   deck = new Deck();
   deck.createOrderedDeck();
-  deck.shuffle()
-  createInitialTable(deck)
+  deck.shuffle();
+  createInitialTable(deck);
   for (carta of table) {
-    createCardBtn(carta)
+    createCardBtn(carta);
   }
-  document.getElementById('start-game').classList.add('disabled')
-})
-
+  document.getElementById("start-game").classList.add("disabled");
+});
