@@ -116,6 +116,13 @@ function deleteSetFromTable(card1, card2, card3) {
   setsFound.push(possibleSet);
 }
 
+// ? esta función la usa clearCardFromTable
+function findCardInTable(cardInput) {
+  return table.findIndex((card) =>
+  card.checkIfTwoCardsAreTheSame(card, cardInput)
+)
+}
+
 /* **** */
 /* GAME */
 /* **** */
@@ -141,7 +148,26 @@ function playSet(card1, card2, card3) {
     deleteSetFromTable(table, card1, card2, card3);
     checkTable();
   }
+
 }
+
+function identifyCard(id) {
+  let idArray = document.getElementById(id).id.split('-').splice(1)
+  return new Card(idArray[0], idArray[1], idArray[2], idArray[3])
+}
+
+let indexOfPressedCards = []
+
+function addEventListenerToCardsButtons() {
+  let cardsButtons = document.getElementsByClassName('btn-card')
+  for (let i = 0; i < cardsButtons.length; i++) {
+  cardsButtons[i].addEventListener('click', function() {
+    console.log(findCardInTable(identifyCard(cardsButtons[i].id)))
+    indexOfPressedCards.push(findCardInTable(identifyCard(cardsButtons[i].id)))
+  })
+  }
+}
+
 
 let card;
 //  JS DOM
@@ -203,3 +229,5 @@ document.getElementById("start-game").addEventListener("click", function () {
   }
   document.getElementById("start-game").classList.add("disabled");
 });
+
+
