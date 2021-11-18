@@ -33,7 +33,11 @@ class Deck {
 
   drawCards(amount) {
     let drawnCards = [];
-    drawnCards = this.cards.splice(this.cards.length - amount, amount)
+    if (this.cards.length >= amount) {
+      drawnCards = this.cards.splice(this.cards.length - amount, amount)
+    } else {
+      drawnCards = this.cards.splice(0, this.cards.length)
+    }
     return drawnCards
   }
 
