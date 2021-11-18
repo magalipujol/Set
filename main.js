@@ -171,53 +171,6 @@ function addEventListenerToCardsButtons() {
 
 let card;
 //  JS DOM
-document
-  .getElementById("create-random-card")
-  .addEventListener("click", function () {
-    card = new Card();
-    card.createRandomCard();
-    console.log(card);
-  });
-
-document.getElementById("create-deck").addEventListener("click", function () {
-  deck = new Deck();
-  deck.createOrderedDeck();
-  console.log(deck.cards);
-});
-
-document.getElementById("print-deck").addEventListener("click", function () {
-  console.log(deck);
-});
-
-document.getElementById("shuffle-deck").addEventListener("click", function () {
-  deck.shuffle();
-  console.log(deck);
-});
-
-document.getElementById("draw-one").addEventListener("click", function () {
-  console.log(deck.drawCards(1));
-  console.log(deck);
-});
-
-document.getElementById("draw-three").addEventListener("click", function () {
-  console.log(deck.drawCards(3));
-  console.log(deck);
-});
-
-document.getElementById("create-cards").addEventListener("click", function () {
-  card1 = new Card("green", "empty", "two", "oval");
-  card2 = new Card("cyan", "solid", "two", "oval");
-  card3 = new Card("magenta", "stripped", "two", "oval");
-  card4 = new Card("cyan", "empty", "two", "oval");
-  console.log(card1, card2, card3, card4);
-});
-
-document
-  .getElementById("create-initial-table")
-  .addEventListener("click", function () {
-    createInitialTable(deck);
-    console.log(table);
-  });
 
 document.getElementById("start-game").addEventListener("click", function () {
   deck = new Deck();
@@ -228,6 +181,23 @@ document.getElementById("start-game").addEventListener("click", function () {
     createCardBtn(carta);
   }
   document.getElementById("start-game").classList.add("disabled");
+  addEventListenerToCardsButtons()	
 });
+
+document.getElementById('user-set').addEventListener('click', function() {
+  if (indexOfPressedCards.length == 3) {
+    setCheck(table[indexOfPressedCards[0]], table[indexOfPressedCards[0]], table[indexOfPressedCards[0]])
+    indexOfPressedCards = []
+    document.getElementById('response').innerHTML = 'CORRECTO'
+  } else if (indexOfPressedCards.length < 3) {
+    console.log('tienen que ser 3 cartas!');
+  } else {
+    console.log('te pasaste bro');
+  }
+})
+
+document.getElementById('reset-btn').addEventListener('click', function () {
+  indexOfPressedCards = []
+})
 
 
