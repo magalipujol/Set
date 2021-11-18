@@ -121,13 +121,17 @@ function deleteSetFromTable(table, card1, card2, card3) {
 /* **** */
 /* GAME */
 /* **** */
-
-function playSet() {
+//
+// TODO
+// ? como hago para que el input de las 3 cartas vaya cambiando
+function playSet(card1, card2, card3) {
   // crear deck shuffleado
   // repartir table inicial
   if (deck.cards.length == 0 && findAllSets(table).length == 0) {
     return setsFound
   } else {
+    deleteSetFromTable(table, card1, card2, card3)
+    checkTable()
 
   }
 }
@@ -179,3 +183,16 @@ document.getElementById("create-initial-table").addEventListener("click", functi
   createInitialTable(deck)
   console.log(table);
 })
+
+
+document.getElementById('start-game').addEventListener('click', function() {
+  deck = new Deck();
+  deck.createOrderedDeck();
+  deck.shuffle()
+  createInitialTable(deck)
+  for (carta of table) {
+    createCardBtn(carta)
+  }
+  document.getElementById('start-game').classList.add('disabled')
+})
+

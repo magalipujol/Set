@@ -17,3 +17,23 @@
     border-color: black;
 }
 
+
+.btn-card {
+    background-color: white;
+    border: solid black 0.5px !important;
+    color: black;
+    margin: 1%;
+}
+
+.btn-card:hover {
+    background-color: black;
+    color: white !important;
+}
+
+#game-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 1%
+}
