@@ -76,11 +76,6 @@ function findAllSets(cards) {
 /* TABLE FUNCTIONS */
 /* *************** */
 
-// * si o si primero tengo que crear la table con 9 cartas, después chequeo la cantidad de cartas
-// * tengo que chequear que siempre haya al menos un set en la mesa
-// * tengo que mantener la cantidad de cartas en la mesa entre 9 y múltiplos de 3 más grandes, salvo que ya no tenga cartas en el mazo
-// * debería tener una función (recursiva) que mantenga que la cantidad de cartas de la mesa
-// * esa función se tiene que llamar cada vez que hay un cambio en las cartas de la mesa
 // ? tengo que pasar como parámetro a table?
 // ? esto no me parece que tenga que ser una función
 function createInitialTable(deck) {
@@ -94,14 +89,13 @@ function createInitialTable(deck) {
 // ? el nombre no estaría indicando muy bien que hace la función
 // this function maintains the amount of table cards.
 // the amount of cards has to be between 9 and a bigger multiple of 3, and it has to have at least one set
-// TODO
 function checkTable(table) {
   if (findAllSets(table).length >= 1) {
     return true
   }
   else {
-    table.push(deck.drawCards)
-    checkTable(table)
+    table.push(...deck.drawCards(3))
+    return checkTable(table)
   }
 }
 
@@ -109,12 +103,9 @@ function checkTable(table) {
 
 function clearCardFromTable(table, cardToDelete) {
   let deletedCardIndex = table.findIndex(card => card.checkIfTwoCardsAreTheSame(card, cardToDelete))
-  // let deletedCard = table.findIndex(card => card.checkIfTwoCardsAreTheSame(card, cardToDelete))
   let deletedCard = table.splice(deletedCardIndex, 1)
   return deletedCard[0]
 }
-// cartaborrada = table.findIndex(carta => carta.checkIfTwoCardsAreTheSame(carta, ultimacarta))
-//TABLEDECK
 
 
 let card;
