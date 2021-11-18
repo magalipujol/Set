@@ -4,6 +4,7 @@ let possibleAmount = ["one", "two", "three"];
 let possibleShape = ["triangle", "hexagon", "oval"];
 let deck;
 let table;
+let setsFound;
 
 /* node
    .load "archivo".js
@@ -93,6 +94,7 @@ function createInitialTable(deck) {
 // ? el nombre no estaría indicando muy bien que hace la función
 // this function maintains the amount of table cards.
 // the amount of cards has to be between 9 and a bigger multiple of 3, and it has to have at least one set
+// TODO
 function checkTable(table) {
   if (findAllSets(table).length >= 1) {
     return true
@@ -105,85 +107,15 @@ function checkTable(table) {
 
 // TODO agregar una función aparte que cuando se hayan repartido todas las cartas del deck, chequee si quedan sets, sino termina el juego
 
-function clearCardFromTable(tableDeck, card) {
-  for (let i = 0; i < tableDeck.length; i++) {
-    if (checkTwoCardsAreTheSame(card, tableDeck[i])) {
-      tableDeck.splice(i, 1);
-    }
-  }
-  return tableDeck;
+function clearCardFromTable(table, cardToDelete) {
+  let deletedCardIndex = table.findIndex(card => card.checkIfTwoCardsAreTheSame(card, cardToDelete))
+  // let deletedCard = table.findIndex(card => card.checkIfTwoCardsAreTheSame(card, cardToDelete))
+  let deletedCard = table.splice(deletedCardIndex, 1)
+  return deletedCard[0]
 }
-
+// cartaborrada = table.findIndex(carta => carta.checkIfTwoCardsAreTheSame(carta, ultimacarta))
 //TABLEDECK
 
-//TODO está mal el setfinder
-function clearSetFromTable(tableDeck, card1, card2, card3) {
-  if (setCheck(card1, card2, card3)) {
-    clearCardFromTable(tableDeck, card1);
-    clearCardFromTable(tableDeck, card2);
-    clearCardFromTable(tableDeck, card3);
-  }
-  return tableDeck;
-}
-
-function checkTwoCardsAreTheSame(card1, card2) {
-  return (
-    card1.color == card2.color &&
-    card1.pattern == card2.pattern &&
-    card1.amount == card1.amount &&
-    card1.shape == card2.shape
-  );
-}
-
-//TODO
-//TABLEDECK
-// function completeTableDeck(tableDeck) {
-  //table has to have 9 cards, unless there are less than 9 cards in the global deck
-  //if there is no set, add 3 cards
-// }
-
-/* hasDuplicates function
-
-function hasDuplicates(array) {
-    return (new Set(array)).size !== array.length;
-}
-
-console.log(hasDuplicates(createOrderedDeck()))
-
-function hasDuplicatess(array) {
-    var valuesSoFar = [];
-    for (var i = 0; i < array.length; ++i) {
-        var value = array[i];
-        if (valuesSoFar.indexOf(value) !== -1) {
-            return true;
-        }
-        valuesSoFar.push(value);
-    }
-    return false;
-}
-*/
-
-Array.prototype.equals = function (array) {
-  // if the other array is a falsy value, return
-  if (!array) return false;
-
-  // compare lengths - can save a lot of time
-  if (this.length != array.length) return false;
-
-  for (var i = 0, l = this.length; i < l; i++) {
-    // Check if we have nested arrays
-    if (this[i] instanceof Array && array[i] instanceof Array) {
-      // recurse into the nested arrays
-      if (!this[i].equals(array[i])) return false;
-    } else if (this[i] != array[i]) {
-      // Warning - two different object instances will never be equal: {x:20} != {x:20}
-      return false;
-    }
-  }
-  return true;
-};
-// Hide method from for-in loops
-Object.defineProperty(Array.prototype, "equals", { enumerable: false });
 
 let card;
 //  JS DOM
