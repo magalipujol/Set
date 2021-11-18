@@ -2,6 +2,8 @@ let possibleColor = ["green", "cyan", "magenta"];
 let possiblePattern = ["empty", "stripped", "solid"];
 let possibleAmount = ["one", "two", "three"];
 let possibleShape = ["triangle", "hexagon", "oval"];
+let deck;
+let table;
 
 /* node
    .load "archivo".js
@@ -9,7 +11,10 @@ let possibleShape = ["triangle", "hexagon", "oval"];
 
 //TODO hacer los asserts de todas las funciones
 
-/* SET CHECKER */
+/* *********** */
+/* SET METHODS */
+/* *********** */
+
 function colorCheck(card1, card2, card3) {
   return (
     (card1.color === card2.color && card2.color === card3.color) ||
@@ -42,9 +47,6 @@ function shapeCheck(card1, card2, card3) {
       card3.shape != card1.shape)
   );
 }
-/* ************* */
-/* SET FUNCTIONS */
-/* ************* */
 
 function setCheck(card1, card2, card3) {
   return (
@@ -55,7 +57,7 @@ function setCheck(card1, card2, card3) {
   );
 }
 
-function findAllSets(...cards) {
+function findAllSets(cards) {
   sets = []
   for (let i = 0; i < cards.length; i++) {
     for (let j = i + 1; j < cards.length; j++) {
@@ -69,32 +71,39 @@ function findAllSets(...cards) {
   return sets;
 }
 
-// function createRandomCard() {
-//     return createCard(possibleColor[Math.floor(Math.random() * 3)],
-//         possiblePattern[Math.floor(Math.random() * 3)],
-//         possibleAmount[Math.floor(Math.random() * 3)],
-//         possibleShape[Math.floor(Math.random() * 3)])
-// }
+/* *************** */
+/* TABLE FUNCTIONS */
+/* *************** */
 
-// TODO concat en vez de push y flat
-function createTableDeck(quantity) {
-  tableDeck.push(shuffledDeck.splice(0, quantity));
-  tableDeck = tableDeck.flat();
-  return tableDeck;
-}
-
-function findSet(tableDeck) {
-  let sets = [];
-  let possibilities = findAllPossibilities(tableDeck);
-  for (let triad of possibilities) {
-    if (setCheck(triad[0], triad[1], triad[2])) {
-      sets.push(triad);
-    }
+// * si o si primero tengo que crear la table con 9 cartas, después chequeo la cantidad de cartas
+// * tengo que chequear que siempre haya al menos un set en la mesa
+// * tengo que mantener la cantidad de cartas en la mesa entre 9 y múltiplos de 3 más grandes, salvo que ya no tenga cartas en el mazo
+// * debería tener una función (recursiva) que mantenga que la cantidad de cartas de la mesa
+// * esa función se tiene que llamar cada vez que hay un cambio en las cartas de la mesa
+// ? tengo que pasar como parámetro a table?
+// ? esto no me parece que tenga que ser una función
+function createInitialTable(deck) {
+  // chequeo primero que no esté con las 9 cartas iniciales
+  if (typeof table === 'undefined') {
+    table = deck.drawCards(9)
   }
-  return sets;
+  return table
 }
 
+// ? el nombre no estaría indicando muy bien que hace la función
+// this function maintains the amount of table cards.
+// the amount of cards has to be between 9 and a bigger multiple of 3, and it has to have at least one set
+function checkTable(table) {
+  if (findAllSets(table).length >= 1) {
+    return true
+  }
+  else {
+    table.push(deck.drawCards)
+    checkTable(table)
+  }
+}
 
+// TODO agregar una función aparte que cuando se hayan repartido todas las cartas del deck, chequee si quedan sets, sino termina el juego
 
 function clearCardFromTable(tableDeck, card) {
   for (let i = 0; i < tableDeck.length; i++) {
@@ -176,7 +185,6 @@ Array.prototype.equals = function (array) {
 // Hide method from for-in loops
 Object.defineProperty(Array.prototype, "equals", { enumerable: false });
 
-let deck;
 let card;
 //  JS DOM
 document

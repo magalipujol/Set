@@ -7,8 +7,8 @@ let card5 = new Card('magenta', 'empty', 'one', 'hexagon');
 
 console.assert(setCheck(card1, card2, card3))
 console.assert(!setCheck(card1, card4, card3))
-console.assert(findAllSets(card1, card2, card3).length == 1);
-console.assert(findAllSets(card1, card2, card3, card4, card5).length == 2);
+console.assert(findAllSets([card1, card2, card3]).length == 1);
+console.assert(findAllSets([card1, card2, card3, card4, card5]).length == 2);
 
 
 // console.assert(set1.checkSet() === true, 'set1 is a set');
