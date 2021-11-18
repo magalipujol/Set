@@ -119,8 +119,8 @@ function deleteSetFromTable(card1, card2, card3) {
 // ? esta función la usa clearCardFromTable
 function findCardInTable(cardInput) {
   return table.findIndex((card) =>
-  card.checkIfTwoCardsAreTheSame(card, cardInput)
-)
+    card.checkIfTwoCardsAreTheSame(card, cardInput)
+  );
 }
 
 /* **** */
@@ -129,11 +129,11 @@ function findCardInTable(cardInput) {
 
 function trySetandRemoveIt(card1, card2, card3) {
   if (!setCheck(card1, card2, card3)) {
-    return false
+    return false;
   } else {
-    deleteSetFromTable(card1, card2, card3)
-    checkTable()
-    return true
+    deleteSetFromTable(card1, card2, card3);
+    checkTable();
+    return true;
   }
 }
 
@@ -148,26 +148,26 @@ function playSet(card1, card2, card3) {
     deleteSetFromTable(table, card1, card2, card3);
     checkTable();
   }
-
 }
 
 function identifyCard(id) {
-  let idArray = document.getElementById(id).id.split('-').splice(1)
-  return new Card(idArray[0], idArray[1], idArray[2], idArray[3])
+  let idArray = document.getElementById(id).id.split("-").splice(1);
+  return new Card(idArray[0], idArray[1], idArray[2], idArray[3]);
 }
 
-let indexOfPressedCards = []
+let indexOfPressedCards = [];
 
 function addEventListenerToCardsButtons() {
-  let cardsButtons = document.getElementsByClassName('btn-card')
+  let cardsButtons = document.getElementsByClassName("btn-card");
   for (let i = 0; i < cardsButtons.length; i++) {
-  cardsButtons[i].addEventListener('click', function() {
-    console.log(findCardInTable(identifyCard(cardsButtons[i].id)))
-    indexOfPressedCards.push(findCardInTable(identifyCard(cardsButtons[i].id)))
-  })
+    cardsButtons[i].addEventListener("click", function () {
+      console.log(findCardInTable(identifyCard(cardsButtons[i].id)));
+      indexOfPressedCards.push(
+        findCardInTable(identifyCard(cardsButtons[i].id))
+      );
+    });
   }
 }
-
 
 let card;
 //  JS DOM
@@ -177,27 +177,37 @@ document.getElementById("start-game").addEventListener("click", function () {
   deck.createOrderedDeck();
   deck.shuffle();
   createInitialTable(deck);
+  checkTable(table);
   for (carta of table) {
     createCardBtn(carta);
   }
+  document.getElementById('sets-found').innerHTML = findAllSets(table).length
   document.getElementById("start-game").classList.add("disabled");
-  addEventListenerToCardsButtons()	
+  addEventListenerToCardsButtons();
 });
 
-document.getElementById('user-set').addEventListener('click', function() {
+document.getElementById("user-set").addEventListener("click", function () {
   if (indexOfPressedCards.length == 3) {
-    setCheck(table[indexOfPressedCards[0]], table[indexOfPressedCards[0]], table[indexOfPressedCards[0]])
-    indexOfPressedCards = []
-    document.getElementById('response').innerHTML = 'CORRECTO'
+    let response = document.getElementById("response");
+    if (
+      setCheck(
+        table[indexOfPressedCards[0]],
+        table[indexOfPressedCards[0]],
+        table[indexOfPressedCards[0]]
+      )
+    ) {
+      indexOfPressedCards = [];
+      response.innerHTML = "CORRECTO";
+    } else {
+      response.innerHTML = "INCORRECTO";
+    }
   } else if (indexOfPressedCards.length < 3) {
-    console.log('tienen que ser 3 cartas!');
+    console.log("tienen que ser 3 cartas!");
   } else {
-    console.log('te pasaste bro');
+    console.log("te pasaste bro");
   }
-})
+});
 
-document.getElementById('reset-btn').addEventListener('click', function () {
-  indexOfPressedCards = []
-})
-
-
+document.getElementById("reset-btn").addEventListener("click", function () {
+  indexOfPressedCards = [];
+});
