@@ -4,7 +4,7 @@ let possibleAmount = ["one", "two", "three"];
 let possibleShape = ["triangle", "hexagon", "oval"];
 let deck;
 let table;
-let setsFound;
+let setsFound = [];
 
 /* node
    .load "archivo".js
@@ -90,7 +90,7 @@ function createInitialTable(deck) {
 // this function maintains the amount of table cards.
 // the amount of cards has to be between 9 and a bigger multiple of 3, and it has to have at least one set
 function checkTable(table) {
-  if (findAllSets(table).length >= 1) {
+  if (findAllSets(table).length >= 1 || deck.cards.length == 0) {
     return true
   }
   else {
@@ -99,7 +99,7 @@ function checkTable(table) {
   }
 }
 
-// TODO agregar una función aparte que cuando se hayan repartido todas las cartas del deck, chequee si quedan sets, sino termina el juego
+// si deck vacio y no hay sets en la mesa => termina el juego
 
 function clearCardFromTable(table, cardToDelete) {
   let deletedCardIndex = table.findIndex(card => card.checkIfTwoCardsAreTheSame(card, cardToDelete))
@@ -107,6 +107,30 @@ function clearCardFromTable(table, cardToDelete) {
   return deletedCard[0]
 }
 
+function deleteSetFromTable(table, card1, card2, card3) {
+  let possibleSet = [card1, card2, card3]
+  if (setCheck(card1, card2, card3)) {
+    for (card in possibleSet) {
+      clearCardFromTable(table, card)
+    }
+  }
+  setsFound.push(possibleSet)
+  return setsFound
+}
+
+/* **** */
+/* GAME */
+/* **** */
+
+function playSet() {
+  // crear deck shuffleado
+  // repartir table inicial
+  if (deck.cards.length == 0 && findAllSets(table).length == 0) {
+    return setsFound
+  } else {
+
+  }
+}
 
 let card;
 //  JS DOM
@@ -150,3 +174,8 @@ document.getElementById("create-cards").addEventListener("click", function () {
   card4 = new Card("cyan", "empty", "two", "oval");
   console.log(card1, card2, card3, card4);
 });
+
+document.getElementById("create-initial-table").addEventListener("click", function() {
+  createInitialTable(deck)
+  console.log(table);
+})
