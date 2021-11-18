@@ -192,8 +192,8 @@ document.getElementById("user-set").addEventListener("click", function () {
     if (
       setCheck(
         table[indexOfPressedCards[0]],
-        table[indexOfPressedCards[0]],
-        table[indexOfPressedCards[0]]
+        table[indexOfPressedCards[1]],
+        table[indexOfPressedCards[2]]
       )
     ) {
       indexOfPressedCards = [];
@@ -210,4 +210,6 @@ document.getElementById("user-set").addEventListener("click", function () {
 
 document.getElementById("reset-btn").addEventListener("click", function () {
   indexOfPressedCards = [];
+   document.getElementById("response").innerHTML = '';
+
 });
